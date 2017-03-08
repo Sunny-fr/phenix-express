@@ -9,7 +9,10 @@ const app = express();
 const morgan = require('morgan');
 const router = require('./router');
 
-function start(config) {
+function start(config, _options) {
+
+
+    const options = _options || {}
 
     // configure app
     app.use(morgan('dev')); // log requests to the console
@@ -29,6 +32,8 @@ function start(config) {
 
     //TODO FIND A WAY TO EXPORT THIS
     //const database = require('./database')
+
+    if (options.onStart) options.onStart(app, router, config)
 
     /**=============================================================================
      * ROUTES FOR OUR API
@@ -67,6 +72,10 @@ function start(config) {
     // Module Example
     // const ModuleConcept = require('./modules/concept/router');
     // ModuleConcept.register(app, router);
+
+    if (options.registerModules) options.registerModules(app, router, config)
+
+
 
 
     // REGISTER OUR ROUTES -------------------------------
