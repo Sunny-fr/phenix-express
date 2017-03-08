@@ -1,6 +1,6 @@
 {
   "name": "phenixExpress",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
@@ -8,7 +8,15 @@
     "prepublish": "npm run compile",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": {
+    "name": "Alaa El Helw",
+    "email": "sicksadsun@gmail.com",
+    "url": "https://github.com/Sunny-fr/phenix-express"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sunny-fr/phenix-express.git"
+  },
   "license": "ISC",
   "devDependencies": {
     "babel": "^6.5.2",
@@ -29,5 +37,9 @@
     "express-fileupload": "0.0.5",
     "mariasql": "^0.2.6",
     "morgan": "^1.7.0"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/Sunny-fr/phenix-express/issues"
+  },
+  "homepage": "https://github.com/Sunny-fr/phenix-express#readme"
 }
