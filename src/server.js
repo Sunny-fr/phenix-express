@@ -21,8 +21,8 @@ function start(config, _options) {
     app.use(bodyParser.urlencoded({extended: true}));
     app.use(bodyParser.json());
 
-    const host = config.app.host
-    const port = process.env.PORT || config.app.port; // set our port
+    const host = config.app.host || process.env.HOST ;
+    const port = config.app.port || process.env.PORT ; // set our port
 
 
     /**=============================================================================
