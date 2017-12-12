@@ -3,11 +3,7 @@ const Model = require('../model/Model')
 class Collection {
 
     constructor(items) {
-        const list = items || [
-                {a: 12, b: 13, c: 4},
-                {a: 12, b: 11, c: 4},
-                {a: 12, b: 11, c: 7}
-            ]
+        const list = items || []
         this.ModelConstructor = Model
         this.reset(list)
     }

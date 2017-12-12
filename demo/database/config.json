@@ -1,6 +1,6 @@
 {
   "host": "localhost",
   "user": "root",
-  "db": "seline",
-  "password": "yoloMariaDb"
+  "db": "someDB",
+  "password": "somePASS"
 }

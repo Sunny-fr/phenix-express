@@ -18,7 +18,7 @@ class MariaModel extends Model {
         const defaultConfig = {
             prop_id: ['id'],
             keyPicker: '*',
-            table: 'concepts',
+            table: 'someTable',
             maria: {
                 host: 'localhost',
                 user: 'root',
