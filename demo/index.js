@@ -12,21 +12,7 @@ const config = {
     addCors: true
 }
 
-const options = {
-    /** REGISTER MODULES **/
-    registerModules: function(app, router, config) {
-
-        // Module Example
-        // const MyModule = require('./modules/my-module/router');
-        // MyModule.register(app, router);
-
-    },
-    onStart: function(){
-
-        //const database = require('./database')
-
-    }
-}
 
 
-server(config, options)
+
+server(config)

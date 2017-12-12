@@ -12,7 +12,7 @@ class Collection {
         const defaultConfig = {
             prop_id: ['id'],
             keyPicker: '*',
-            table: 'someTable',
+            table: 'concepts',
             limit: 50,
             maria: {
                 host: 'localhost',

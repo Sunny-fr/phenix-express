@@ -1,12 +1,12 @@
 {
   "prop_id": ["id"],
   "keyPicker": "*",
-  "table": "someTable",
+  "table": "concepts",
   "limit": 50,
   "maria": {
     "host": "localhost",
     "user": "root",
-    "db": "someDb",
-    "password": "somePassword"
+    "db": "seline",
+    "password": "yoloMariaDb"
   }
 }
