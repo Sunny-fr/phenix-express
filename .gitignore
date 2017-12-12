@@ -13,4 +13,3 @@ node_modules
 npm-debug.log*
 server/tokens/
 server/public/build
-package-lock.json
