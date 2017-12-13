@@ -55,6 +55,11 @@ class MariaModel extends Model {
             this.qb.query(prep(this._genParams()), {useArray: false})
                 .then((response) => {
                     this.client.end()
+                    if (response.length < 1) {
+                        reject('not found');
+                        return;
+                    }
+
                     this.set(response[0])
                     resolve(this)
                 })
