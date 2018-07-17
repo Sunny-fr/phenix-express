@@ -9,6 +9,8 @@ const app = express();
 const morgan = require('morgan');
 const router = require('./router');
 
+const maxPayloadSize = '10mb'
+
 function start(config, _options) {
 
 
@@ -18,8 +20,14 @@ function start(config, _options) {
     app.use(morgan('dev')); // log requests to the console
 
     // configure body parser
-    app.use(bodyParser.urlencoded({extended: true}));
-    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({
+        limit: maxPayloadSize,
+        extended: true,
+    }));
+    app.use(bodyParser.json({
+        type: '*/*',
+        limit: maxPayloadSize
+    }));
 
     const host = config.app.host || process.env.HOST ;
     const port = config.app.port || process.env.PORT ; // set our port
