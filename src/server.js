@@ -17,7 +17,7 @@ function start(config, _options) {
     const options = _options || {}
 
     // configure app
-    app.use(morgan('dev')); // log requests to the console
+    app.use(morgan(options.morgan || 'dev')); // log requests to the console
 
     // configure body parser
     app.use(bodyParser.urlencoded({
@@ -38,8 +38,6 @@ function start(config, _options) {
      *
      =============================================================================*/
 
-    //TODO FIND A WAY TO EXPORT THIS
-    //const database = require('./database')
 
     if (options.onStart) options.onStart(app, router, config)
 
@@ -61,10 +59,10 @@ function start(config, _options) {
     }
 
     // middleware to use for all requests
-    router.use(function (req, res, next) {
-        // do logging
-        next();
-    });
+    // router.use(function (req, res, next) {
+    //     // do logging
+    //     next();
+    // });
 
 
     /**=============================================================================
