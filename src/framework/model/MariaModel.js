@@ -85,7 +85,7 @@ class MariaModel extends Model {
 
     _update() {
         const part_1 = genParams('UPDATE ' + this._table + ' SET {gen}', Object.keys(this.attributes), ' , ')
-        const part_2 = genParams(' WHERE {gen}', this._id_props, ' , ')
+        const part_2 = genParams(' WHERE {gen}', this._id_props, ' AND ')
         const prep = this.qb.prepare(part_1 + part_2)
         return this.qb.query(prep(this.toJSON()), {useArray: false})
     }
