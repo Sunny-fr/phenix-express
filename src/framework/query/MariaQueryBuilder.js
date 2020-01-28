@@ -3,10 +3,6 @@ class QueryBuilder {
         this.client = options.client
     }
 
-    prepare (string){
-        return this.client.prepare(string)
-    }
-
     query(string, extrargs) {
         const options = extrargs || {useArray: true}
         return new Promise((resolve, reject) => {

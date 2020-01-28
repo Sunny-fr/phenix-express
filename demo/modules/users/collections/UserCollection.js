@@ -1,8 +1,8 @@
 const Collection = require('../../../../src').MariaCollection
-const ConceptModel = require('../models/ConceptModel')
-const config = require('../config.json')
+const ConceptModel = require('../models/UserModel')
+const config = require('../config')
 
-class ConceptCollection extends Collection {
+class UserCollection extends Collection {
     constructor(items) {
         super(items)
         this.ModelConstructor = ConceptModel
@@ -10,4 +10,4 @@ class ConceptCollection extends Collection {
     }
 }
 
-module.exports = ConceptCollection
+module.exports = UserCollection

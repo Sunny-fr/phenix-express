@@ -1,51 +1,51 @@
-const concept = require('./controller')
+const user = require('./controller')
 
 const register = function (app, router) {
 
     // File upload middleware
     /** MIDDLEWARES **/
 
-    router.route('/concept/search')
+    router.route('/user/search')
 
     /********
      * Search
      *
      */
-        .post(concept.search)
+        .post(user.search)
 
 
-    router.route('/concept/:name')
+    router.route('/user/:name')
     /********
      * Get one
      *
      */
-        .get(concept.get)
+        .get(user.get)
 
         /********
          * Update
          *
          */
-        .put(concept.update)
+        .put(user.update)
 
         /********
          * Delete
          *
          */
-        .delete(concept.delete)
+        .delete(user.delete)
 
-    router.route('/concept/')
+    router.route('/user/')
 
     /********
      * Create
      *
      */
-        .post(concept.create)
+        .post(user.create)
 
         /********
          * Get all
          *
          */
-        .get(concept.getAll)
+        .get(user.getAll)
 }
 
 module.exports = {

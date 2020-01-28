@@ -1,5 +1,5 @@
 const QueryBuilder = require('../query/MariaQueryBuilder')
-const Client = require('mariasql')
+const mariadb = require('mariadb')
 const chalk = require('chalk')
 
 
@@ -33,6 +33,67 @@ class Collection {
         this._maria = c.maria
     }
 
+
+    createConnection = () => {
+        return this.connection = mariadb.createConnection(
+            {
+                host: this._maria.host,
+                port: this._maria.port,
+                user: this._maria.user,
+                password: this._maria.password,
+                database: this._maria.db,
+                charset: this._maria.charset,
+                connectionLimit: 5
+            }
+        )
+    }
+    endConnection = () => {
+        return this.getConnection().then(conn => conn.end())
+    }
+
+    endConnectionSilently = () => {
+        this.endConnection().catch(e => {
+            console.log('error while disconnecting')
+            console.log(e)
+        })
+    }
+
+    getConnection = () => {
+        return this.connection
+    }
+
+    _findArguments(params) {
+        return Object.keys(params).reduce((state, key) => {
+            if (!params[key]) return state;
+            return state.concat(key + ' LIKE \'%' + params[key] + '%\' ')
+        }, ['1']).join(' AND ')
+    }
+
+    find = (params) => {
+        //TODO MERGE A
+        return this.createConnection()
+            .then(this.getConnection)
+            .then(conn => {
+                const query = 'SELECT ' +
+                    this._keys +
+                    ' FROM ' +
+                    this._table +
+                    ' WHERE ' + this._findArguments(params) +
+                    '  LIMIT 0, ' + this._limit
+
+
+                return conn.query(query, {useArray: false})
+                    .then((response) => {
+                        this.endConnectionSilently()
+                        return this.reset(response, true)
+                    })
+                    .catch(e => {
+                        this.endConnectionSilently()
+                        return Promise.reject(e)
+                    })
+            })
+    }
+
     // get (prop) {
     //   return prop ? this.attributes[prop] : this.attributes
     // }
@@ -45,19 +106,20 @@ class Collection {
 
     fetch() {
         //TODO MERGE A
-        const client = new Client(this._maria)
-        return new Promise((resolve, reject) => {
-            const qb = new QueryBuilder({client})
-            qb.query('SELECT ' + this._keys + ' FROM ' + this._table + ' LIMIT 0, ' + this._limit  , {useArray: false})
-                .then((response) => {
-                    client.end()
-                    resolve(this.reset(response, true))
-                })
-                .catch(e => {
-                    client.end()
-                    reject(e)
-                })
-        })
+        return this.createConnection()
+            .then(this.getConnection)
+            .then(conn => {
+                return conn.query(`SELECT ${this._keys} FROM ${this._table}  LIMIT 0, ${this._limit}`  , {useArray: false})
+                    .then((response) => {
+                        this.endConnectionSilently()
+                        return this.reset(response, true)
+                    })
+                    .catch(e => {
+                        this.endConnectionSilently()
+                        return Promise.reject(e)
+                    })
+            })
+
     }
 
     toJSON() {

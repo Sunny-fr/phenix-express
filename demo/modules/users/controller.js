@@ -1,5 +1,5 @@
-const ConceptModel = require('./models/ConceptModel')
-const ConceptCollection = require('./collections/ConceptCollection')
+const UserModel = require('./models/UserModel')
+const UserCollection = require('./collections/UserCollection')
 
 /**
  * Will create a concept
@@ -16,13 +16,12 @@ exports.create = function (req, res) {
         return;
     }
 
-    const conceptModel = new ConceptModel(req.body)
+    const conceptModel = new UserModel(req.body)
     conceptModel.save()
         .then(() => {
             res.status(201).json(conceptModel.toJSON())
         })
         .catch(error => {
-
             res.status(500).json({message: error});
         })
 };
@@ -35,13 +34,13 @@ exports.create = function (req, res) {
  */
 exports.search = function (req, res) {
 
-    if (!req.body.name) {
+    if (!req.body.firstName) {
         const message = 'No Search Term provided'
         res.status(400).json({message});
         return;
     }
-    const collection = new ConceptCollection()
-    collection.find({'name': new RegExp(req.body.name, 'i')})
+    const collection = new UserCollection()
+    collection.find({'firstName': req.body.firstName})
         .then(() => {
             res.status(201).json(collection.toJSON())
         })
@@ -58,7 +57,7 @@ exports.search = function (req, res) {
 exports.getAll = function (req, res) {
 
 
-    const collection = new ConceptCollection()
+    const collection = new UserCollection()
     collection.fetch()
         .then(() => {
             res.status(200).json(collection.toJSON())
@@ -84,7 +83,7 @@ exports.get = function (req, res) {
         return;
     }
 
-    const conceptModel = new ConceptModel({name})
+    const conceptModel = new UserModel({name})
     conceptModel.fetch()
         .then(() => {
             res.status(201).json(conceptModel.toJSON())
@@ -113,7 +112,7 @@ exports.update = function (req, res) {
         return;
     }
 
-    const conceptModel = new ConceptModel({name})
+    const conceptModel = new UserModel({name})
     conceptModel
         .fetch()
         .then(() => {
@@ -146,7 +145,7 @@ exports.delete = function (req, res) {
         return;
     }
 
-    const conceptModel = new ConceptModel({name})
+    const conceptModel = new UserModel({name})
     conceptModel.fetch()
         .then(() => {
             conceptModel
